@@ -1,0 +1,501 @@
+/* Home.css */
+body {
+    margin: 0;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f7fa;
+}
+
+.beranda-container {
+    background-image: url('./images/bg-library.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    /* ganti dari height jadi min-height */
+    display: flex;
+    flex-direction: column;
+    /* hilangkan justify-content dan align-items, agar konten mengalir normal */
+    position: relative;
+    overflow: visible;
+    /* biarkan konten keluar jika perlu */
+}
+
+.overlay {
+    position: fixed;
+    /* ubah jadi fixed supaya overlay full page */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* full viewport width */
+    height: 100vh;
+    /* full viewport height */
+    background-color: rgba(255, 255, 255, 0.85);
+    z-index: 1;
+    pointer-events: none;
+    /* supaya overlay tidak blok interaksi */
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    align-items: center;
+    background: #fff;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    /* Vertikal tengah */
+    font-size: 20px;
+    font-weight: bold;
+    /* Bold teks */
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.logo span {
+    font-weight: bold;
+}
+
+
+.search-login {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    text-decoration: none;
+    color: #000;
+}
+
+.blue-button {
+    padding: 8px 15px;
+    background-color: #3bb1ff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.hero {
+    position: relative;
+    background-color: #3bb1ff;
+    padding: 2rem;
+    border-radius: 12px;
+    overflow: visible;
+    /* penting agar gambar yang keluar tidak terpotong */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
+    /* beri ruang atas supaya gambar bisa keluar ke atas */
+}
+
+.hero-image {
+    width: 32%;
+    position: absolute;
+    top: -35px;
+    /* lebih tinggi keluar ke atas */
+    left: -38px;
+    /* sedikit keluar ke kiri */
+    z-index: 1;
+    margin-left: 38px;
+    margin-right: 60px;
+}
+
+.hero-text {
+    margin-left: 280px;
+    /* beri jarak agar teks tidak tertimpa gambar */
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    margin-left: 60px;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-left: 60px;
+    color: white;
+}
+
+
+
+/* Container utama daftar buku */
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+
+/* Kartu buku */
+.book-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+
+    width: 100%;
+    height: 100%;
+    /* min-height: 330px; */
+}
+
+/* Bagian konten buku (judul, penulis) */
+.book-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Gambar buku */
+/* .book-image {
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 10px;
+} */
+.book-image {
+    width: 80px;
+    /* Lebar gambar lebih kecil */
+    height: auto;
+    /* Tinggi otomatis agar proporsional */
+    display: block;
+    /* Agar bisa di-margin auto */
+    margin: 15px auto 10px;
+    /* Tengah secara horizontal + spasi atas/bawah */
+    object-fit: contain;
+    /* Pastikan tidak terpotong */
+}
+
+
+/* Judul buku */
+.book-card h3 {
+    font-size: 14px;
+    margin: 10px 0 5px;
+}
+
+/* Penulis */
+.author {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Wrapper harga */
+.book-price {
+    background-color: #0099ff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 0 0 15px 15px;
+}
+
+/* Harga */
+.price {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+}
+
+.footer {
+    background-color: #1e90ff;
+    color: #fff;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer-content {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+.footer-tagline {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 20px;
+}
+
+.social-icons a {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffdd57;
+    /* warna hover keren */
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Dashboard */
+.icon {
+    font-size: 1.5rem;
+    margin: 0 10px;
+    color: #333;
+    cursor: pointer;
+}
+
+.profile-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 2.5rem;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 100;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 8px 12px;
+    color: #333;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Detail Book */
+.detail-container {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.book-header {
+    display: flex;
+    gap: 20px;
+    background: #e5f1ff;
+    padding: 20px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.cover-image {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.info h2 {
+    font-size: 28px;
+    margin-bottom: 0;
+}
+
+.price {
+    font-size: 20px;
+    margin: 10px 0;
+    color: green;
+}
+
+.btn-cart {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.description,
+.reviews,
+.seller {
+    margin-top: 30px;
+}
+
+.review-item {
+    background: #f9f9f9;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.btn-review {
+    margin-top: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+
+
+
+/* Responsive untuk tablet dan smartphone */
+@media (max-width: 1024px) {
+
+    /* Ubah grid buku jadi 3 kolom */
+    .book-list {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 40px 20px 20px 20px;
+        padding: 1.5rem;
+    }
+
+    .hero-image {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 250px;
+        margin: 0 auto 20px auto;
+        z-index: 1;
+    }
+
+    .hero-text {
+        margin-left: 0;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+        margin-left: 0;
+    }
+
+    .hero-text p {
+        margin-left: 0;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Untuk smartphone kecil */
+
+    /* Navbar */
+    .navbar {
+        flex-direction: column;
+        padding: 15px 20px;
+        gap: 10px;
+    }
+
+    .search-login {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .search-box {
+        flex-grow: 1;
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .link-button,
+    .blue-button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    /* Daftar buku jadi 1 kolom */
+    .book-list {
+        padding: 20px 10px;
+        gap: 15px;
+    }
+
+    .book-card {
+        min-height: auto;
+        height: auto;
+    }
+
+    .book-image {
+        width: 60px;
+        margin: 10px auto;
+    }
+
+    .book-card h3 {
+        font-size: 16px;
+    }
+
+    .author {
+        font-size: 14px;
+    }
+
+    /* Hero text */
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    .hero-text p {
+        font-size: 0.9rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 20px 10px;
+        font-size: 14px;
+    }
+
+    .social-icons i {
+        font-size: 16px;
+        margin: 0 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .book-list {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+}

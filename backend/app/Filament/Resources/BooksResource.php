@@ -3,15 +3,18 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BooksResource\Pages;
-use App\Filament\Resources\BooksResource\RelationManagers;
 use App\Models\Books;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\FileUpload;
+
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class BooksResource extends Resource
 {
@@ -23,30 +26,49 @@ class BooksResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('category_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->required(),
+
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(150)
+                    ->afterStateUpdated(function (Set $set, ?string $state) {
+                        if ($state) {
+                            $set('slug', Str::slug($state));
+                        }
+                    })
+                    ->live(onBlur: true),
+
+
                 Forms\Components\TextInput::make('author')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(100),
+
                 Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
+                    ->disabled()
+                    ->dehydrated(),
+
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->numeric()
-                    ->prefix('$'),
+                    ->prefix('Rp'),
+
                 Forms\Components\FileUpload::make('cover_image')
-                    ->image(),
+                    ->image()
+                    ->directory('books')
+                    ->openable()
+                    ->reorderable(),
+
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
             ]);
+    }
+
+    public static function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = Auth::id();
+        return $data;
     }
 
     public static function table(Table $table): Table
@@ -56,23 +78,33 @@ class BooksResource extends Resource
                 Tables\Columns\TextColumn::make('user_id')
                     ->numeric()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('category_id')
                     ->numeric()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('author')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->money('IDR', true)
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('cover_image'),
+
+                // Tables\Columns\ImageColumn::make('cover_image'),
+                Tables\Columns\ImageColumn::make('cover_image')
+                    ->label('Cover')
+                    ->disk('public')
+                    ->height(60)
+                    ->width(80),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
