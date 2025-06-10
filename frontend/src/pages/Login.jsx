@@ -28,39 +28,41 @@ const Login = () => {
     };
 
     return (
-        <div className="register-container">
+        <div className="auth-wrapper">
             <div className="overlay"></div>
-            <form onSubmit={handleLogin} className="register-form">
-                <img src="/images/logo.png" alt="Logo" />
-                <h2>MASUK</h2>
+            <div className='content'>
+                <form onSubmit={handleLogin} className="form-container">
+                    <img src="/images/logo.png" alt="Logo" />
+                    <h2>MASUK</h2>
 
-                {error && <p className="error-message">{error}</p>}
+                    {error && <p className="error-message">{error}</p>}
 
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
 
-                <button type="submit" className="login-button">Masuk</button>
+                    <button type="submit" className="login-button">Masuk</button>
 
-                <p className="separator-text">Belum punya akun?</p>
+                    <p className="separator-text">Belum punya akun?</p>
 
-                <button type="button" className="register-button" onClick={handleNavigateRegister}>
-                    Daftar
-                </button>
-            </form>
+                    <button type="button" className="register-button" onClick={handleNavigateRegister}>
+                        Daftar
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

@@ -14,4 +14,4 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 // Books
 Route::get('/books', [BooksController::class, 'index']);
 
-Route::get('/books/{slug}', [BooksController::class, 'show']);
+Route::middleware('auth:sanctum')->get('/books/{slug}', [BooksController::class, 'show']);

@@ -1,19 +1,28 @@
-// src/components/Footer.jsx
 import React from 'react';
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+import "../assets/main.css";
 
 const Footer = () => {
     return (
-        <footer className="bg-blue-500 text-white text-center py-6 mt-10">
-            <div className="font-bold text-xl">UsedBooks</div>
-            <p className="text-sm mt-2">
-                "Toko Buku Pendidikan Bekas Berkualitas<br />
-                Dengan Harga Terjangkau." - Ir. H. Joko Widodo
-            </p>
-            <div className="flex justify-center mt-4 space-x-4">
-                <FaFacebookF />
-                <FaInstagram />
-                <FaTwitter />
+        <footer className="footer">
+            <div className="footer-content">
+                <p className="footer-tagline">
+                    Toko Buku Pendidikan Bekas Berkualitas dengan Harga Terjangkau
+                </p>
+                <div className="social-icons">
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <FaFacebookF />
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <FaInstagram />
+                    </a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <FaTwitter />
+                    </a>
+                </div>
+            </div>
+            <div className="footer-bottom">
+                <small>© {new Date().getFullYear()} UsedBooks. All rights reserved.</small>
             </div>
         </footer>
     );

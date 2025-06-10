@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import "../assets/Home.css";
+import "../assets/main.css";
 import { Link } from "react-router-dom";
 import { getBooks } from "../api/api.js";
+import Footer from "../components/Footer";
 
 export default function Home() {
     const [books, setBooks] = useState([]); // ✅ state untuk menyimpan buku
-    const [loading, setLoading] = useState(true); // ✅ state untuk loading
+    const [Loading, setLoading] = useState(true); // ✅ state untuk loading
+
 
     useEffect(() => {
         const fetchBooks = async () => {
             try {
                 const response = await getBooks();
-                setBooks(response); // ✅ Sesuaikan struktur response
+                setBooks(response);
             } catch (error) {
                 console.error("Gagal memuat buku:", error);
             } finally {
@@ -23,23 +25,23 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="beranda-container">
+        <div className="page-container">
             <div className="overlay"></div>
-            <div className="content">
-                <header className="navbar">
-                    <div className="logo">
-                        <img src="/images/logo.png" alt="Logo" />
-                        <span>UsedBooks</span>
-                    </div>
-                    <div className="search-login">
-                        <input type="text" placeholder="Search" className="search-box" />
-                        <Link to="/register" className="link-button">Daftar</Link>
-                        <Link to="/login" className="blue-button">Masuk</Link>
-                    </div>
-                </header>
+            <header className="navbar">
+                <div className="logo">
+                    <img src="/images/logo.png" alt="Logo" />
+                    <span>UsedBooks</span>
+                </div>
+                <div className="search-login">
+                    <input type="text" placeholder="Search" className="search-box" />
+                    <Link to="/register" className="link-button">Daftar</Link>
+                    <Link to="/login" className="blue-button">Masuk</Link>
+                </div>
+            </header>
 
+            <main className="home-main">
                 <section className="hero">
-                    <img src="/images/book.png" alt="Books" className="hero-image" />
+                    <img src="/images/book.png" alt="Books" />
                     <div className="hero-text">
                         <h1>Buku</h1>
                         <h1>Rekomendasi</h1>
@@ -48,13 +50,13 @@ export default function Home() {
                 </section>
 
                 <section className="book-list">
-                    {loading ? (
+                    {Loading ? (
                         <p>Loading buku...</p>
                     ) : books.length === 0 ? (
                         <p>Tidak ada buku tersedia.</p>
                     ) : (
                         books.map((book, index) => (
-                            <div className="book-card" key={index}>
+                            <Link to={`/books/${book.slug}`} key={index} className="book-card">
                                 <img
                                     src={book.cover_image || "/images/novel.png"}
                                     alt={book.title}
@@ -67,33 +69,14 @@ export default function Home() {
                                 <div className="book-price">
                                     <p className="price">Rp. {parseInt(book.price).toLocaleString("id-ID")}</p>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     )}
                 </section>
+            </main>
 
-                <footer className="footer">
-                    <div className="footer-content">
-                        <p className="footer-tagline">
-                            Toko Buku Pendidikan Bekas Berkualitas dengan Harga Terjangkau
-                        </p>
-                        <div className="social-icons">
-                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                                <i className="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                                <i className="fab fa-instagram"></i>
-                            </a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                                <i className="fab fa-twitter"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div className="footer-bottom">
-                        <small>© {new Date().getFullYear()} UsedBooks. All rights reserved.</small>
-                    </div>
-                </footer>
-            </div>
+            <Footer />
+
         </div>
     );
 }

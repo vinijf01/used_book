@@ -29,60 +29,61 @@ const Register = () => {
     };
 
     return (
-        <div className="register-container">
+        <div className='auth-wrapper'>
             <div className='overlay'></div>
-            <form className="register-form" onSubmit={handleRegister}>
-                <img src="/images/logo.png" alt="Logo" />
-                <h2>DAFTAR</h2>
+            <div className='content'>
+                <form className="form-container" onSubmit={handleRegister}>
+                    <img src="/images/logo.png" alt="Logo" />
+                    <h2>DAFTAR</h2>
 
-                {errors.general && <p className="error-message">{errors.general}</p>}
+                    {errors.general && <p className="error-message">{errors.general}</p>}
 
-                <input
-                    type="text"
-                    placeholder="Nama"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
-                {errors.name && <p className="error-message">{errors.name}</p>}
+                    <input
+                        type="text"
+                        placeholder="Nama"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+                    {errors.name && <p className="error-message">{errors.name}</p>}
 
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                {errors.email && <p className="error-message">{errors.email}</p>}
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    {errors.email && <p className="error-message">{errors.email}</p>}
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                {errors.password && <p className="error-message">{errors.password}</p>}
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    {errors.password && <p className="error-message">{errors.password}</p>}
 
-                <input
-                    type="password"
-                    placeholder="Konfirmasi Password"
-                    value={passwordConfirmation}
-                    onChange={(e) => setPasswordConfirmation(e.target.value)}
-                    required
-                />
-                {errors.password_confirmation && (
-                    <p className="error-message">{errors.password_confirmation}</p>
-                )}
+                    <input
+                        type="password"
+                        placeholder="Konfirmasi Password"
+                        value={passwordConfirmation}
+                        onChange={(e) => setPasswordConfirmation(e.target.value)}
+                        required
+                    />
+                    {errors.password_confirmation && (
+                        <p className="error-message">{errors.password_confirmation}</p>
+                    )}
 
-                <button type="submit">Daftar</button>
+                    <button type="submit">Daftar</button>
 
-                <p>
-                    Sudah punya akun? <a href="/login">Masuk di sini</a>
-                </p>
+                    <p>
+                        Sudah punya akun? <a href="/login">Masuk di sini</a>
+                    </p>
 
-            </form>
-
+                </form>
+            </div>
         </div>
     );
 };

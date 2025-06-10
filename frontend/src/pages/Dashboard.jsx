@@ -1,32 +1,21 @@
 import React, { useEffect, useState } from "react";
-import "../assets/Home.css";
-import { Link } from "react-router-dom";
-import { logout } from "../api/auth";
+import { Link, useNavigate } from "react-router-dom";
 import { getBooks } from "../api/api.js";
-import { useNavigate } from "react-router-dom"; // Pastikan ini sesuai dengan path yang benar
-
+import Footer from "../components/Footer";
+import Header from "../components/Header"; // ✅ import komponen Header
+import "../assets/main.css";
 
 export default function Dashboard() {
-    const [showDropdown, setShowDropdown] = useState(false); // ✅ Dipindahkan ke dalam fungsi
+    const [books, setBooks] = useState([]);
+    const [Loading, setLoading] = useState(true);
+    const [showDropdown, setShowDropdown] = useState(false); // ✅ state untuk dropdown
     const navigate = useNavigate();
-    const [books, setBooks] = useState([]); // ✅ state untuk menyimpan buku
-    const [Loading, setLoading] = useState(true); // ✅ state untuk loading
-
-    const handleLogout = async () => {
-        try {
-            await logout();
-            navigate("/");
-        } catch (error) {
-            console.error("Logout failed:", error);
-        }
-    };
-
 
     useEffect(() => {
         const fetchBooks = async () => {
             try {
                 const response = await getBooks();
-                setBooks(response); // ✅ Sesuaikan struktur response
+                setBooks(response);
             } catch (error) {
                 console.error("Gagal memuat buku:", error);
             } finally {
@@ -37,42 +26,13 @@ export default function Dashboard() {
         fetchBooks();
     }, []);
 
-
-
     return (
-        <div className="beranda-container">
+        <div className="page-container">
             <div className="overlay"></div>
-            <div className="content">
-                <header className="navbar">
-                    <div className="logo"><img src="/images/logo.png" alt="Logo" /><span>UsedBooks</span></div>
-                    <div className="search-login">
-                        <input type="text" placeholder="Search" className="search-box" />
-                        <Link to="/cart" aria-label="Cart">
-                            <i className="fas fa-shopping-cart icon"></i>
-                        </Link>
-                        <Link to="/favorites" aria-label="Favorite">
-                            <i className="fa-regular fa-heart icon"></i>
-                        </Link>
+            {/* ✅ gunakan komponen Header */}
+            <Header showDropdown={showDropdown} setShowDropdown={setShowDropdown} />
 
-                        <div className="profile-icon" onClick={() => setShowDropdown(!showDropdown)}>
-                            <i className="fas fa-user-circle icon"></i>
-                            {showDropdown && (
-                                <div className="dropdown-menu">
-                                    <Link to="/profile/edit">Edit Profile</Link>
-                                    <Link to="/reset-password">Reset Password</Link>
-                                    <a href="#" onClick={(e) => {
-                                        e.preventDefault();
-                                        handleLogout();
-                                    }} className="logout-button">
-                                        Logout
-                                    </a>
-                                </div>
-
-                            )}
-                        </div>
-                    </div>
-                </header>
-
+            <main className="home-main">
                 <section className="hero">
                     <img src="/images/book.png" alt="Books" className="hero-image" />
                     <div className="hero-text">
@@ -89,7 +49,7 @@ export default function Dashboard() {
                         <p>Tidak ada buku tersedia.</p>
                     ) : (
                         books.map((book, index) => (
-                            <div className="book-card" key={index}>
+                            <Link to={`/books/${book.slug}`} key={index} className="book-card">
                                 <img
                                     src={book.cover_image || "/images/novel.png"}
                                     alt={book.title}
@@ -102,33 +62,13 @@ export default function Dashboard() {
                                 <div className="book-price">
                                     <p className="price">Rp. {parseInt(book.price).toLocaleString("id-ID")}</p>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     )}
                 </section>
+            </main>
 
-                <footer className="footer">
-                    <div className="footer-content">
-                        <p className="footer-tagline">
-                            Toko Buku Pendidikan Bekas Berkualitas dengan Harga Terjangkau
-                        </p>
-                        <div className="social-icons">
-                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                                <i className="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                                <i className="fab fa-instagram"></i>
-                            </a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                                <i className="fab fa-twitter"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div className="footer-bottom">
-                        <small>© {new Date().getFullYear()} UsedBooks. All rights reserved.</small>
-                    </div>
-                </footer>
-            </div>
+            <Footer />
         </div>
     );
 }
