@@ -3,11 +3,21 @@ import "../assets/main.css";
 import { Link } from "react-router-dom";
 import { getBooks } from "../api/api.js";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
     const [books, setBooks] = useState([]); // ✅ state untuk menyimpan buku
     const [Loading, setLoading] = useState(true); // ✅ state untuk loading
+    const navigate = useNavigate();
 
+    const handleBookClick = (slug) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+        } else {
+            navigate(`/books/${slug}`);
+        }
+    };
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -56,7 +66,7 @@ export default function Home() {
                         <p>Tidak ada buku tersedia.</p>
                     ) : (
                         books.map((book, index) => (
-                            <Link to={`/books/${book.slug}`} key={index} className="book-card">
+                            <div key={index} className="book-card" onClick={() => handleBookClick(book.slug)} style={{ cursor: 'pointer' }}>
                                 <img
                                     src={book.cover_image || "/images/novel.png"}
                                     alt={book.title}
@@ -69,8 +79,9 @@ export default function Home() {
                                 <div className="book-price">
                                     <p className="price">Rp. {parseInt(book.price).toLocaleString("id-ID")}</p>
                                 </div>
-                            </Link>
+                            </div>
                         ))
+
                     )}
                 </section>
             </main>

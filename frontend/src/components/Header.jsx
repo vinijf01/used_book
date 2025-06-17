@@ -24,7 +24,7 @@ export default function Header({ showDropdown, setShowDropdown }) {
             </div>
             <div className="search-login">
                 <input type="text" placeholder="Search" className="search-box" />
-                <Link to="/cart" aria-label="Cart">
+                <Link to="/carts" aria-label="Cart">
                     <i className="fas fa-shopping-cart icon"></i>
                 </Link>
                 <Link to="/favorites" aria-label="Favorite">

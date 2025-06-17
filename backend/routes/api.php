@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,7 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 Route::get('/books', [BooksController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/books/{slug}', [BooksController::class, 'show']);
+
+// CART
+Route::middleware('auth:sanctum')->post('/cart', [CartController::class, 'addToCart']);
+Route::middleware('auth:sanctum')->get('/cart', [CartController::class, 'index']);

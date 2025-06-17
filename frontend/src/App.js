@@ -6,7 +6,8 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import ProtectedRoute from "./components/ProtectedRoute";
-// import DetailBook from './pages/DetailBook';
+import DetailBook from './pages/DetailBook';
+import Carts from './pages/Carts';
 
 // Import komponen lain yang mungkin Anda miliki, seperti Dashboard
 // import Dashboard from './components/Dashboard';
@@ -20,7 +21,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<ProtectedRoute>
           <Dashboard /></ProtectedRoute>} />
-        {/* <Route path="/books/:slug" element={<DetailBook />} /> */}
+        <Route path="/books/:slug" element={<DetailBook />} />
+        <Route path="/carts" element={<Carts />} />
 
         {/* Rute default, jika ada */}
       </Routes>
